@@ -32,7 +32,6 @@ public class MandelBrotPlotter extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-
         for (int x = 0; x < width; x++) {
 
             if (x == 0) {
@@ -47,14 +46,14 @@ public class MandelBrotPlotter extends JPanel {
                 Color color = determineColor(numberOfIterations);
 
                 g2d.setColor(color);
-                g2d.fillOval(x, y, 1, 1);
+                g2d.fillOval(x, y, 2, 2);
             }
         }
     }
 
     private Color determineColor(int numberOfIterations) {
 
-        int  shadeOfGray = 255 - (numberOfIterations);
+        int  shadeOfGray = 255 - numberOfIterations;
 
         return new Color(0, 0, shadeOfGray);
     }

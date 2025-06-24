@@ -11,8 +11,8 @@ public class SeriesCalculator {
 
         while (current == null || current.getAmount() < threshHold) {
 
-            if (numberOfIterations == 250) {
-                return 250;
+            if (numberOfIterations == 100) {
+                return 255;
             }
 
             if (current == null) {
