@@ -7,7 +7,6 @@ import mandelbrot.model.ComplexNumber;
 import javax.swing.*;
 import java.awt.*;
 
-@AllArgsConstructor
 public class MandelBrotPlotter extends JPanel {
 
     private static final int X_MAX = 1;
@@ -20,6 +19,14 @@ public class MandelBrotPlotter extends JPanel {
 
     private final SeriesCalculator seriesCalculator = new SeriesCalculator();
 
+    public MandelBrotPlotter(int width, int height, int threshold) {
+        this.width = width;
+        this.height = height;
+        this.threshold = threshold;
+
+        setSize(width, height);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -27,26 +34,29 @@ public class MandelBrotPlotter extends JPanel {
 
 
         for (int x = 0; x < width; x++) {
+
+            if (x == 0) {
+                continue;
+            }
+
             for (int y = 0; y < height; y++) {
                 double xDouble = mapToXDecimalValue(x);
                 double yDouble = mapToYDecimalValue(y);
 
                 int numberOfIterations = seriesCalculator.getNumberOfIterations(new ComplexNumber(xDouble, yDouble), threshold);
-                System.out.println(numberOfIterations);
                 Color color = determineColor(numberOfIterations);
 
                 g2d.setColor(color);
-                g2d.fillOval(x, y, width, height);
+                g2d.fillOval(x, y, 1, 1);
             }
         }
-
     }
 
     private Color determineColor(int numberOfIterations) {
 
-        int  shadeOfGray = 255 - numberOfIterations * 10;
+        int  shadeOfGray = 255 - (numberOfIterations);
 
-        return new Color(shadeOfGray, shadeOfGray, shadeOfGray);
+        return new Color(0, 0, shadeOfGray);
     }
 
     private double mapToXDecimalValue(int xPixel) {
@@ -55,5 +65,10 @@ public class MandelBrotPlotter extends JPanel {
 
     private double mapToYDecimalValue(int yPixel) {
         return -(((Y_MAX - Y_MIN) / (double) height) * yPixel + Y_MIN);
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(width, height);
     }
 }
