@@ -19,12 +19,11 @@ public class ComplexNumber {
 
     public ComplexNumber potentiate(int n) {
 
-        //TODO check, what kind of argument sin, cos. acos take / return
         double r = getAmount();
         double phi = getPhi();
 
         double newPhi = phi * n;
-        double newR = r * n;
+        double newR = Math.pow(r, n);
 
         double newX = newR * Math.cos(newPhi);
         double newY = newR * Math.sin(newPhi);
@@ -36,7 +35,8 @@ public class ComplexNumber {
         return Math.sqrt(x * x + y * y);
     }
 
-    private double getPhi() {
-        return Math.atan(y / x);
+    public double getPhi() {
+        double phi =  Math.atan(y / x);
+        return phi;
     }
 }
